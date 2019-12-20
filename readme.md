@@ -13,7 +13,7 @@ ligne de commande à la racine de `votreDossier/` :
 Mamp (ici le mot de passe est vide et la base s'appelle blogSymfony !!) : 
 	- `$ DATABASE_URL=mysql://root:@127.0.0.1:3306/blogSymfony`
 -   Nous allons maintenant créer la base de données, c'est automatique avec symfony !!: 
-	- `$ php bin/console database:create`
+	- `$ php bin/console doctrine:database:create`
 -   Puis créer les tables de la bases : 
 	- `$ php bin/console make:migration` 
 	- `$ php bin/console doctrine:migrations:migrate` 
@@ -22,5 +22,7 @@ Mamp (ici le mot de passe est vide et la base s'appelle blogSymfony !!) :
 	- `$ php bin/console doctrine:fixtures:load` 
 	- Répondre "y" à la question "WARNING ! ...."
 -   OUF ! All is done !! Go to Work ;)
+-   Maintenant lancez le serveur Web PHP et rendez vous sur l'adresse indiquée !
+	- `$ php bin/console server:run`
 
 Je vous aime !
