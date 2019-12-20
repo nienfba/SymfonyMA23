@@ -1,0 +1,26 @@
+{% extends 'admin.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+    {% if (article.title != '') %}
+        Editer article
+    {% else %}  
+        Ajouter un article
+    {% endif %}
+{% endblock %}
+{% block titlecoontent %}
+    {% if (article.title != '') %}
+        Editer article
+    {% else %}
+        Ajouter un article
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Enregistrer">
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
+    <table id="tableDonnee" class="table">
+        <thead>
+            <th>Image</th>
+            <th>Titre</th>
+            <th>Date publication</th>
+            <th>Catégorie</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td><img class="img-thumbnail" width="150"
+                       src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="{{ article.title }}"></td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.createdAt | date('d/m/Y H:i:s') }}</td>
+                <td><span class="badge badge-pill badge-success">{{ article.category.title }}</span></td>
+                <td><a href="{{ path('editArticle', {id: article.id}) }}"><i class="icon-edit"></i></a> <a
+                        href="" data-toggle="modal" data-target="#delete"><i
+                            class="icon-trash"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+        
+   
+
+{% endblock %}

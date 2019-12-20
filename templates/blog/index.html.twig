@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil de mon blog{% endblock %}
+
+{% block body %}
+
+    {% for article in articles %}
+        <div class="post-preview">
+            <a href="{{ path('articleDetail', {id: article.id}) }}">
+                <h2 class="post-title">
+                    {{ article.title }}
+                </h2>
+            </a>
+            <p class="post-content-resume">
+                {{ article.content | truncate(100)}}
+            </p>
+            
+            <p class="post-meta">Posted by
+                <a href="#">Start Bootstrap</a>
+                {{ article.createdAt | date("m/d/Y") }} - {{ article.category.title }}
+            </p>
+        </div>
+        <hr>
+    {% endfor %}
+
+{% endblock %}
