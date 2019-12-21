@@ -40,4 +40,23 @@ class BlogController extends AbstractController
             'categories' => $catRepo->findAll()
         ]);
     }
+
+    /**
+     * @Route("/pages/{page}", name="pages")
+     */
+    public function staticPage($page = null)
+    {
+        if ($page == null)
+            return $this->redirectToRoute('home');
+
+        return $this->render('blog/'.$page.'.html.twig', []);
+    }
+
+    /**
+     * @Route("/contacts", name="contacts")
+     */
+    public function contacts()
+    {
+        //Ici gestion page contact et formulaire de contact
+    }
 }

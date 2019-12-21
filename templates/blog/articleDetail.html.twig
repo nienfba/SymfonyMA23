@@ -4,7 +4,7 @@
 
 
 {% block header %}<!-- Page Header -->
-<header class="masthead" style="background-image: url('{{ article.picture }}')">
+<header class="masthead" style="background-image: url('{% if 'https://' in article.picture or 'http://' in article.picture %}{{ article.picture }} {% else %}{{ vich_uploader_asset(article, 'imageFile') }} {% endif %}')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -23,6 +23,6 @@
 
 {% block body %}
 <article>
-    {{ article.content }}
+    {{ article.content | raw }}
 </article>
 {% endblock %}

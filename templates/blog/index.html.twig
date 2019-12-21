@@ -7,12 +7,15 @@
     {% for article in articles %}
         <div class="post-preview">
             <a href="{{ path('articleDetail', {id: article.id}) }}">
+                <img class="img-thumbnail" width="200"
+                    src="{% if 'https://' in article.picture or 'http://' in article.picture %}{{ article.picture }} {% else %}{{ vich_uploader_asset(article, 'imageFile') }} {% endif %}"
+                    alt="{{ article.title }}"></td>
                 <h2 class="post-title">
                     {{ article.title }}
                 </h2>
             </a>
             <p class="post-content-resume">
-                {{ article.content | truncate(100)}}
+                {{ article.content | striptags | truncate(100) }}
             </p>
             
             <p class="post-meta">Posted by

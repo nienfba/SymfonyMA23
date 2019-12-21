@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -28,8 +29,11 @@ class AdminController extends AbstractController
      */
     public function addArticle(Article $article=null, Request $request)
     {
-        if ($article == null)
+        if ($article == null) {
             $article = new Article();
+            $article->setCreatedAt(new \DateTime());
+            $article->setPublishedAt(new \DateTime());
+        }
 
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -66,5 +70,18 @@ class AdminController extends AbstractController
         return $this->render('admin/listArticle.html.twig', [
             'articles' => $articles,
         ]);
+    }
+
+    /**
+     * @Route("/admin/article/del/{id}", name="delArticle")
+     */
+    public function delArticle(Article $article = null,  EntityManagerInterface $manager)
+    {
+        if ($article !== null) {
+            $this->addFlash("success", "L'article {$article->getId()} : {$article->getTitle()} a bien été supprimé !");
+            $manager->remove($article);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('listArticle');
     }
 }

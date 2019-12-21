@@ -21,13 +21,12 @@
         <tbody>
             {% for article in articles %}
             <tr>
-                <td><img class="img-thumbnail" width="150"
-                       src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="{{ article.title }}"></td>
+                <td><img class="img-thumbnail" width="150" src="{% if 'https://' in article.picture or 'http://' in article.picture %}{{ article.picture }} {% else %}{{ vich_uploader_asset(article, 'imageFile') }} {% endif %}" alt="{{ article.title }}"></td>
                 <td>{{ article.title }}</td>
                 <td>{{ article.createdAt | date('d/m/Y H:i:s') }}</td>
                 <td><span class="badge badge-pill badge-success">{{ article.category.title }}</span></td>
                 <td><a href="{{ path('editArticle', {id: article.id}) }}"><i class="icon-edit"></i></a> <a
-                        href="" data-toggle="modal" data-target="#delete"><i
+                        href="{{ path('delArticle', {id: article.id}) }}" data-toggle="modal" data-target="#delete"><i
                             class="icon-trash"></i></a></td>
             </tr>
             {% endfor %}
